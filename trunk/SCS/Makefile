@@ -1,23 +1,34 @@
-#########
-#
-# fonctionsTCP
-#
-#########
+# Chemins utilises a la compilation
+BIN= bin/
+LIBDIR=lib/
+INC=include/
+SRCDIR=src/
 
-# For Solaris
-#LD_FLAGS = -lsocket -lnsl
+# Commandes de compilation
+CC=gcc
+CFLAGS=-O4 -W -Wall -g
+CPPFLAGS=-I $(INC) 
+LDFLAGS=-L $(LIBDIR) -lpthread
+EXEC = client
 
-# For Linux
-LD_FLAGS =
+# Sources necessaires
+SRC= $(wildcard $(SRCDIR)*.c) 
+OBJ= $(SRC:.c=.o)
+HDR= $(SRC:.c=.h)
 
-all: client 
 
-fonctionsSocket.o: fonctionsTCP.c fonctionsTCP.h
-	gcc -c -o fonctionsTCP.o fonctionsTCP.c
+all:$(EXEC)
 
-client: client.c fonctionsTCP.o protocol.h
-	gcc client.c -o client fonctionsTCP.o  $(LD_FLAGS)
+$(EXEC): $(OBJ)
+	$(CC) -o $(BIN)$@ $^ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) 
+
+%.o: %.c %.h
+	$(CC) -o $@ -c $< $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 clean:
-	rm *~ ; rm -i \#* ; rm *.o; \
-        rm client ; rm serveur
+	rm *.o
+
+reset:
+	rm $(BIN)$(EXEC) 
+
+veryclean: clean reset

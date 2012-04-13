@@ -1,27 +1,3 @@
-/*
- **********************************************************
- *
- *  Programme : client.c
- *
- *  ecrit par : Rousset Alban & Kawczak Clement
- *
- *  resume : client pour jeux foursight
- *
- *  date :      05/03/12
- *
- ***********************************************************
- */
-
-/* inclusions standards */
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-
-#include "fonctionsTCP.h"
-#include "protocol.h"
-
-
 int main(int argc, char** argv) {
   int sock,               /* descripteur de la socket locale */
       err;                /* code d'erreur */
@@ -108,4 +84,3 @@ int main(int argc, char** argv) {
 	printf("%d\n", partie_rep.finTournoi);
 	printf("%d\n", partie_rep.premier);
 }
-
